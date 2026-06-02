@@ -1,0 +1,10 @@
+export const MODULES = [
+  { id:"basics",       label:"Java Basics",        icon:"☕", color:"#f97316", desc:"Start from zero — variables to methods",   topics:["introduction","variables","datatypes","operators","control-flow","loops","arrays","strings","methods","input-output"] },
+  { id:"oop",          label:"OOP Concepts",        icon:"🏗️", color:"#38bdf8", desc:"Classes, inheritance, polymorphism & more",topics:["classes-objects","constructors","inheritance","polymorphism","abstraction","encapsulation","interfaces","static-keyword"] },
+  { id:"collections",  label:"Collections",         icon:"📦", color:"#4ade80", desc:"List, Set, Map — master the JCF",           topics:["collections-intro","arraylist","linkedlist","hashmap","treemap","hashset","stack-queue","iterators"] },
+  { id:"exceptions",   label:"Exception Handling",  icon:"🛡️", color:"#f87171", desc:"Write crash-proof robust programs",         topics:["exceptions-intro","try-catch","finally","throw-throws","custom-exceptions"] },
+  { id:"java8",        label:"Java 8 Features",     icon:"⚡", color:"#c084fc", desc:"Lambdas, Streams, Optional and more",       topics:["lambda","functional-interfaces","streams","optional","default-methods","method-references","date-time"] },
+  { id:"multithreading",label:"Multithreading",     icon:"🧵", color:"#fbbf24", desc:"Concurrency, threads and parallelism",      topics:["threads-intro","thread-lifecycle","synchronization","executor-service","completable-future","concurrent-collections"] },
+  { id:"advanced",     label:"Advanced Java",       icon:"🚀", color:"#f97316", desc:"Generics, reflection, design patterns",     topics:["generics","annotations","design-patterns","file-io"] },
+  { id:"interview",    label:"Interview Prep",      icon:"💼", color:"#38bdf8", desc:"Crack any Java interview confidently",      topics:["interview-core","interview-oop","interview-collections","interview-java8","dsa-arrays","dsa-strings","dsa-linkedlist","dsa-trees","dsa-sorting","dsa-dynamic-programming"] }
+]

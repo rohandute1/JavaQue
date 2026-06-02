@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- ═══ VIEWPORT — Critical for all mobile devices ═══════════
+         width=device-width: use actual screen width
+         initial-scale=1.0: don't zoom in by default
+         viewport-fit=cover: content fills iPhone notch area too
+    ════════════════════════════════════════════════════════════ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- ═══ iOS (iPhone / iPad) specific ═══════════════════════ -->
+    <!-- Makes it look native when added to home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="JavaQue" />
+
+    <!-- ═══ Android / Chrome specific ══════════════════════════ -->
+    <!-- Theme colour for browser address bar on Android -->
+    <meta name="theme-color" content="#0d1117" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- ═══ Windows (Tiles) ═════════════════════════════════════ -->
+    <meta name="msapplication-TileColor" content="#f97316" />
+    <meta name="msapplication-navbutton-color" content="#f97316" />
+
+    <!-- ═══ Security headers ════════════════════════════════════ -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src  'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://adservice.google.com https://emkc.org;
+      style-src   'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src    'self' https://fonts.gstatic.com;
+      img-src     'self' data: blob: https:;
+      connect-src 'self' https://emkc.org https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com;
+      frame-src   'none';
+      object-src  'none';
+      base-uri    'self';
+      form-action 'self';
+    " />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=()" />
+
+    <!-- ═══ SEO ══════════════════════════════════════════════════ -->
+    <meta name="description" content="JavaQue — Free Java Learning Platform. Learn Java from beginner to advanced with 58 structured lessons, quizzes, code editor, and interview prep. 100% free, no account needed." />
+    <meta name="keywords" content="learn java free, java tutorial, java programming, java interview questions, java beginners, DSA java, java 8 features, javaque" />
+    <meta name="author" content="JavaQue" />
+    <meta property="og:title" content="JavaQue — Learn Java Free" />
+    <meta property="og:description" content="58 structured Java lessons, quizzes, built-in code editor, and interview prep. 100% free forever." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://javaque.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="JavaQue — Learn Java Free" />
+    <meta name="twitter:description" content="58 structured Java lessons. 100% free." />
+
+    <title>JavaQue — Learn Java Free</title>
+
+    <!-- Favicon for all devices -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <!-- Fallback favicon for older browsers -->
+    <link rel="alternate icon" href="/logo.svg" />
+    <!-- Apple touch icon (iPhone / iPad home screen) -->
+    <link rel="apple-touch-icon" href="/logo.svg" />
+
+    <!-- ═══ Fonts ═════════════════════════════════════════════════
+         preconnect speeds up font loading on all devices
+    ════════════════════════════════════════════════════════════ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Prevent flash of unstyled content -->
+    <style>
+      html, body { background: #0d1117; margin: 0; padding: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

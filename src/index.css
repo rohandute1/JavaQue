@@ -1,0 +1,454 @@
+/* ═══════════════════════════════════════════════════════════════
+   JavaQue — Global Styles
+   Device compatible: Windows, Mac, iPhone, Android, iPad, Tab
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ─── CSS Variables — Dark Theme ─────────────────────────────── */
+:root {
+  --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-body:    'Inter', 'Plus Jakarta Sans', sans-serif;
+  --font-code:    'JetBrains Mono', 'Fira Code', monospace;
+
+  --bg:        #0d1117;
+  --surface:   #0f1923;
+  --card:      #131e2b;
+  --card2:     #1a2535;
+  --card-hover:#1e2d40;
+  --border:    #1e2d3d;
+  --border2:   #2d3f55;
+  --text:      #c9d1d9;
+  --text-soft: #8b9db0;
+  --text-muted:#637a91;
+  --heading:   #e6edf3;
+  --accent:    #f97316;
+}
+
+/* ─── CSS Variables — Light Theme ────────────────────────────── */
+[data-theme='light'] {
+  --bg:        #f8fafc;
+  --surface:   #ffffff;
+  --card:      #ffffff;
+  --card2:     #f1f5f9;
+  --card-hover:#f1f5f9;
+  --border:    #e2e8f0;
+  --border2:   #cbd5e1;
+  --text:      #374151;
+  --text-soft: #4b5563;
+  --text-muted:#6b7280;
+  --heading:   #111827;
+  --accent:    #f97316;
+}
+
+/* ─── Reset & Base ────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Fix iOS bounce scroll */
+  height: 100%;
+  /* Use dvh (dynamic viewport height) for mobile browsers with URL bars */
+  height: 100dvh;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  /* Smooth fonts on all OS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Prevent iOS text size adjustment on rotate */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Scrollbar (Desktop) ─────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--border2); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─── Typography ──────────────────────────────────────────────── */
+a { color: inherit; }
+button, input, textarea, select {
+  font-family: inherit;
+  /* Fix iOS input font size zoom (must be >= 16px to prevent zoom) */
+  font-size: 16px;
+}
+/* Override for places where we set custom font sizes */
+button { font-size: inherit; }
+
+/* ─── Gradient text (cross-browser) ──────────────────────────── */
+.gradient-text {
+  background: linear-gradient(90deg, #f97316, #fbbf24, #fb923c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Fallback for browsers that don't support */
+  color: #f97316;
+}
+
+/* ─── Visibility classes ──────────────────────────────────────── */
+/* Desktop: show sidebar, hide mobile elements */
+.hide-mobile       { display: flex !important; }
+.show-mobile-only  { display: none !important; }
+.show-mobile-flex  { display: none !important; }
+
+/* ─── Hover lift card ─────────────────────────────────────────── */
+.hover-lift {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease !important;
+  /* Prevent layout shift on mobile from hover */
+  will-change: transform;
+}
+/* Only apply hover on non-touch devices */
+@media (hover: hover) {
+  .hover-lift:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.25) !important;
+  }
+}
+
+/* ─── Button glow ─────────────────────────────────────────────── */
+.btn-glow {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 20px rgba(249,115,22,0.35);
+  /* Touch target minimum 44px for accessibility */
+  min-height: 44px;
+  padding: 10px 24px;
+  /* Prevent double-tap zoom on iOS */
+  touch-action: manipulation;
+}
+@media (hover: hover) {
+  .btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(249,115,22,0.5);
+    background: linear-gradient(135deg, #fb923c, #f97316);
+  }
+}
+.btn-glow:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(249,115,22,0.3);
+}
+
+/* ─── Progress bar ────────────────────────────────────────────── */
+.progress-bar {
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f97316, #fbbf24);
+  transition: width 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ─── Animations ──────────────────────────────────────────────── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(249,115,22,0.5); }
+  50%       { opacity: 0.6; box-shadow: 0 0 0 4px rgba(249,115,22,0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes staggerIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.88); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bounce {
+  0%,100% { transform:translateY(0); opacity:0.4; }
+  50%     { transform:translateY(-4px); opacity:1; }
+}
+@keyframes modalIn {
+  from { opacity:0; transform:scale(0.94) translateY(14px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+
+.fade-up { animation: fadeUp 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+
+.stagger > * { animation: staggerIn 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+.stagger > *:nth-child(1)  { animation-delay: 0.04s; }
+.stagger > *:nth-child(2)  { animation-delay: 0.08s; }
+.stagger > *:nth-child(3)  { animation-delay: 0.12s; }
+.stagger > *:nth-child(4)  { animation-delay: 0.16s; }
+.stagger > *:nth-child(5)  { animation-delay: 0.20s; }
+.stagger > *:nth-child(6)  { animation-delay: 0.24s; }
+.stagger > *:nth-child(7)  { animation-delay: 0.28s; }
+.stagger > *:nth-child(8)  { animation-delay: 0.32s; }
+.stagger > *:nth-child(n+9){ animation-delay: 0.36s; }
+
+/* ─── Data table ──────────────────────────────────────────────── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+.data-table th {
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.6;
+}
+.data-table tr:last-child td { border-bottom: none; }
+
+/* Table scroll on small screens */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+}
+
+/* ─── Code blocks ─────────────────────────────────────────────── */
+pre, .code-block-wrapper {
+  font-family: var(--font-code);
+  border-radius: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  max-width: 100%;
+}
+pre::-webkit-scrollbar       { height: 4px; }
+pre::-webkit-scrollbar-track  { background: transparent; }
+pre::-webkit-scrollbar-thumb  { background: var(--border2); border-radius: 99px; }
+
+/* ─── Tip / Info boxes ────────────────────────────────────────── */
+.tip-box {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  margin: 12px 0;
+}
+.tip-box.info    { background: rgba(88,166,255,0.08);  border: 1px solid rgba(88,166,255,0.25);  color: var(--text); }
+.tip-box.warning { background: rgba(251,191,36,0.08);  border: 1px solid rgba(251,191,36,0.25);  color: var(--text); }
+.tip-box.success { background: rgba(63,185,80,0.08);   border: 1px solid rgba(63,185,80,0.25);   color: var(--text); }
+.tip-box.danger  { background: rgba(239,68,68,0.08);   border: 1px solid rgba(239,68,68,0.25);   color: var(--text); }
+
+/* ─── Prose ───────────────────────────────────────────────────── */
+.prose p    { line-height: 1.85; margin-bottom: 16px; color: var(--text); font-family: var(--font-body); font-size: 15px; }
+.prose h2   { font-family: var(--font-display); font-weight: 800; color: var(--heading); font-size: 19px; margin: 28px 0 12px; }
+.prose h3   { font-family: var(--font-display); font-weight: 700; color: var(--heading); font-size: 16px; margin: 22px 0 10px; }
+.prose code { font-family: var(--font-code); background: var(--card2); border: 1px solid var(--border); border-radius: 5px; padding: 1px 7px; font-size: 13px; color: #f97316; }
+.prose ul   { padding-left: 20px; margin-bottom: 16px; }
+.prose li   { line-height: 1.8; color: var(--text); font-family: var(--font-body); font-size: 14.5px; margin-bottom: 6px; }
+
+/* ─── Focus styles (keyboard & screen reader accessibility) ──── */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) { outline: none; }
+
+/* ─── Touch targets (iOS / Android accessibility) ────────────── */
+/* All interactive elements must be at least 44×44px (Apple HIG) */
+button, [role="button"] {
+  min-height: 44px;
+  /* Prevent iOS text selection on tap */
+  -webkit-user-select: none;
+  user-select: none;
+  /* Prevent double-tap zoom */
+  touch-action: manipulation;
+}
+/* Override for tiny decorative buttons */
+button.small-btn { min-height: unset; }
+
+/* ─── Input / Textarea ────────────────────────────────────────── */
+input, textarea, select {
+  /* Prevent iOS input zoom (font-size must be ≥ 16px) */
+  font-size: max(16px, 1em);
+  /* Remove iOS default styling */
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 8px;
+}
+
+/* ─── Images ──────────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+  /* Prevent iOS long-press save image menu on logo etc */
+  -webkit-touch-callout: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   xs: < 480px   (small phones — iPhone SE, Galaxy A)
+   sm: 480–639px (large phones — iPhone Pro Max, Pixel)
+   md: 640–767px (small tablets — iPad mini portrait)
+   lg: 768–1023px(tablets — iPad, Android tab landscape)
+   xl: ≥ 1024px  (desktops, laptops, iPad Pro landscape)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Tablet & Mobile (< 1024px) ─────────────────────────────── */
+@media (max-width: 1023px) {
+  .hide-mobile       { display: none !important; }
+  .show-mobile-only  { display: block !important; }
+  .show-mobile-flex  { display: flex !important; }
+  body { font-size: 15px; }
+}
+
+/* ─── Legal pages ─────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .legal-grid   { grid-template-columns: 1fr !important; }
+  .legal-toc    { display: none !important; }
+  .contact-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ─── Footer ──────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .footer-main-grid { grid-template-columns: 1fr 1fr 1fr !important; }
+}
+@media (max-width: 600px) {
+  .footer-main-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 400px) {
+  .footer-main-grid  { grid-template-columns: 1fr !important; }
+  .footer-bottom-row { flex-direction: column !important; gap: 10px !important; }
+}
+
+/* ─── Dashboard ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .dashboard-stats-grid { grid-template-columns: 1fr 1fr !important; }
+  .module-grid          { grid-template-columns: 1fr !important; }
+}
+
+/* ─── Topic grid ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .topics-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 420px) {
+  .topics-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ─── TopicPage ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .topic-layout    { padding: 14px !important; }
+  .topic-nav-grid  { grid-template-columns: 1fr !important; }
+}
+
+/* ─── Modal ───────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .modal-inner {
+    margin: 12px !important;
+    max-height: 90dvh !important;
+    border-radius: 16px !important;
+  }
+}
+
+/* ─── Code editor — stack vertically on mobile ────────────────── */
+@media (max-width: 768px) {
+  .compiler-split {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr 1fr;
+    overflow-y: auto;
+  }
+  .compiler-editor-pane {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+    min-height: 280px;
+  }
+}
+
+/* ─── Hero sections — smaller padding on mobile ──────────────── */
+@media (max-width: 640px) {
+  .hero-padding  { padding: 28px 16px 24px !important; }
+  .page-padding  { padding-left: 16px !important; padding-right: 16px !important; }
+}
+
+/* ─── Small phones (< 480px) ─────────────────────────────────── */
+@media (max-width: 480px) {
+  h1 { font-size: clamp(22px, 7vw, 32px) !important; }
+  .hide-xs { display: none !important; }
+  .search-bar input { font-size: 16px !important; } /* prevent zoom */
+}
+
+/* ─── iPad / Tablet specific fixes ───────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Sidebar hidden — use hamburger */
+  .hide-mobile { display: none !important; }
+  /* Wider content area */
+  .page-padding { padding-left: 24px !important; padding-right: 24px !important; }
+}
+
+/* ─── iPhone notch / Dynamic Island safe areas ────────────────── */
+@supports (padding: max(0px)) {
+  header {
+    padding-left:  max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
+  }
+  main {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* ─── Prevent content jumping when keyboard opens (iOS) ─────── */
+@media (max-height: 500px) and (max-width: 768px) {
+  /* When soft keyboard is open on mobile, tighten spacing */
+  header { height: 44px !important; }
+}
+
+/* ─── High DPI / Retina screens ──────────────────────────────── */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Ensure borders look crisp on retina */
+  .data-table th, .data-table td { border-width: 0.5px; }
+}
+
+/* ─── Print ───────────────────────────────────────────────────── */
+@media print {
+  aside, header, footer, .btn-glow, button { display: none !important; }
+  main { overflow: visible !important; }
+  body { background: white; color: black; }
+}

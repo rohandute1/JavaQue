@@ -333,11 +333,31 @@ img {
    ═══════════════════════════════════════════════════════════════ */
 
 /* ─── Tablet & Mobile (< 1024px) ─────────────────────────────── */
+
+/* Desktop sidebar: visible on large screens, COMPLETELY GONE on mobile */
+.desktop-sidebar {
+  display: flex !important;
+}
+.show-mobile-only  { display: none !important; }
+.show-mobile-flex  { display: none !important; }
+
 @media (max-width: 1023px) {
-  .hide-mobile       { display: none !important; }
+  /* COMPLETELY hide desktop sidebar — no icon mode, no width, nothing */
+  .desktop-sidebar {
+    display: none !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
   .show-mobile-only  { display: block !important; }
-  .show-mobile-flex  { display: flex !important; }
+  .show-mobile-flex  { display: flex  !important; }
   body { font-size: 15px; }
+}
+
+/* Slide-in animation for mobile drawer */
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0.5; }
+  to   { transform: translateX(0);     opacity: 1; }
 }
 
 /* ─── Legal pages ─────────────────────────────────────────────── */

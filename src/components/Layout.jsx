@@ -58,14 +58,16 @@ export default function Layout({ theme, setTheme, progress, xp, bookmarks }) {
   ]
 
   /* ── Sidebar content ─────────────────────────────────────────── */
-  const SidebarContent = () => (
+  const SidebarContent = ({ mobile = false }) => {
+    const showFull = sidebarOpen || mobile
+    return (
     <div style={{ display:'flex', flexDirection:'column', height:'100%', overflow:'hidden' }}>
 
       {/* ── Logo — compact ───────────────────────────────────── */}
       <div style={{ padding:'14px 12px 12px', borderBottom:'1px solid var(--border)', flexShrink:0 }}>
         <NavLink to="/" style={{ textDecoration:'none', display:'flex', alignItems:'center', gap:9 }}>
           <img src="/logo.svg" alt="JavaQue" style={{ width:34, height:34, borderRadius:9, flexShrink:0, boxShadow:'0 3px 10px rgba(249,115,22,0.3)' }} />
-          {sidebarOpen && (
+          {showFull && (
             <div>
               <div style={{ fontFamily:'var(--font-display)', fontWeight:800, fontSize:15, color:'var(--heading)', letterSpacing:'-0.03em', lineHeight:1.1 }}>JavaQue</div>
               <div style={{ fontSize:8, color:'#f97316', fontWeight:700, letterSpacing:'0.13em', marginTop:2 }}>LEARN · CODE · QUEUE</div>
@@ -80,8 +82,8 @@ export default function Layout({ theme, setTheme, progress, xp, bookmarks }) {
           <NavLink key={item.to} to={item.to} end={item.exact}
             style={({ isActive }) => ({
               display:'flex', alignItems:'center', gap:8,
-              padding: sidebarOpen ? '7px 9px' : '9px',
-              justifyContent: sidebarOpen ? 'flex-start' : 'center',
+              padding: showFull ? '7px 9px' : '9px',
+              justifyContent: showFull ? 'flex-start' : 'center',
               borderRadius:8,
               background: isActive ? 'rgba(249,115,22,0.12)' : 'transparent',
               color: isActive ? '#f97316' : 'var(--text-soft)',
@@ -97,13 +99,13 @@ export default function Layout({ theme, setTheme, progress, xp, bookmarks }) {
             onMouseLeave={e => { if (e.currentTarget.getAttribute('aria-current') !== 'page') e.currentTarget.style.background='transparent' }}
           >
             <span style={{ fontSize:13, flexShrink:0 }}>{item.icon}</span>
-            {sidebarOpen && <span style={{ lineHeight:1, whiteSpace:'nowrap' }}>{item.label}</span>}
+            {showFull && <span style={{ lineHeight:1, whiteSpace:'nowrap' }}>{item.label}</span>}
           </NavLink>
         ))}
       </div>
 
       {/* ── MODULES — takes all remaining space ──────────────── */}
-      {sidebarOpen ? (
+      {showFull ? (
         <div style={{ flex:1, overflowY:'auto', overflowX:'hidden', padding:'0 6px 4px' }}>
 
           {/* Section label */}
@@ -215,40 +217,64 @@ export default function Layout({ theme, setTheme, progress, xp, bookmarks }) {
           onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.color='var(--text-muted)' }}
         >
           {theme === 'dark' ? '☀️' : '🌙'}
-          {sidebarOpen && <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>}
+          {showFull && <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>}
         </button>
       </div>
     </div>
-  )
+    )
+  }
 
   /* ── Layout ──────────────────────────────────────────────────── */
   return (
     <div style={{ display:'flex', height:'100dvh', overflow:'hidden', background:'var(--bg)' }}>
 
-      {/* Desktop sidebar */}
-      <aside className="hide-mobile" style={{
+      {/* Desktop sidebar — completely hidden on mobile via CSS */}
+      <aside style={{
         width: sidebarOpen ? 242 : 52,
         minWidth: sidebarOpen ? 242 : 52,
         background:'var(--surface)',
         borderRight:'1px solid var(--border)',
         transition:'width 0.26s cubic-bezier(0.16,1,0.3,1), min-width 0.26s',
-        flexShrink:0, display:'flex', flexDirection:'column', overflow:'hidden',
-      }}>
+        flexShrink:0,
+        display:'flex',
+        flexDirection:'column',
+        overflow:'hidden',
+        // MOBILE FIX: completely hide sidebar on screens < 1024px
+        // CSS media query in index.css handles this via .desktop-sidebar
+      }} className="desktop-sidebar">
         <SidebarContent />
       </aside>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer — slides in from left, only shown when mobileOpen=true */}
       {mobileOpen && (
-        <div className="show-mobile-only">
-          <div onClick={() => setMobileOpen(false)} style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.72)', backdropFilter:'blur(3px)', zIndex:40 }} />
-          <aside style={{ position:'fixed', left:0, top:0, bottom:0, width:255, background:'var(--surface)', zIndex:50, borderRight:'1px solid var(--border)', display:'flex', flexDirection:'column', boxShadow:'4px 0 24px rgba(0,0,0,0.4)' }}>
-            <div style={{ display:'flex', justifyContent:'flex-end', padding:'8px 8px 0' }}>
-              <button onClick={() => setMobileOpen(false)}
-                style={{ background:'var(--card2)', border:'1px solid var(--border)', color:'var(--text-muted)', width:28, height:28, borderRadius:6, cursor:'pointer', fontSize:13, display:'flex', alignItems:'center', justifyContent:'center' }}>✕</button>
+        <>
+          {/* Dark backdrop */}
+          <div
+            onClick={() => setMobileOpen(false)}
+            style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.75)', backdropFilter:'blur(3px)', zIndex:40 }}
+          />
+          {/* Drawer */}
+          <aside style={{
+            position:'fixed', left:0, top:0, bottom:0, width:270,
+            background:'var(--surface)', zIndex:50,
+            borderRight:'1px solid var(--border)',
+            display:'flex', flexDirection:'column',
+            boxShadow:'4px 0 30px rgba(0,0,0,0.5)',
+            animation:'slideInLeft 0.25s cubic-bezier(0.16,1,0.3,1)',
+          }}>
+            {/* Close button */}
+            <div style={{ display:'flex', justifyContent:'flex-end', padding:'10px 10px 0', flexShrink:0 }}>
+              <button
+                onClick={() => setMobileOpen(false)}
+                style={{ background:'var(--card2)', border:'1px solid var(--border)', color:'var(--text-muted)', width:32, height:32, borderRadius:8, cursor:'pointer', fontSize:14, display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700 }}>
+                ✕
+              </button>
             </div>
-            <div style={{ flex:1, overflow:'hidden' }}><SidebarContent /></div>
+            <div style={{ flex:1, overflow:'hidden' }}>
+              <SidebarContent mobile={true} />
+            </div>
           </aside>
-        </div>
+        </>
       )}
 
       {/* Main content */}
